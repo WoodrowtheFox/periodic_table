@@ -1,18 +1,129 @@
 import 'package:periodic_table/Elements.dart';
-import 'Actinium.dart';
+import 'Hydrogen.dart';
+import 'Helium.dart';
+import 'Lithium.dart';
+import 'Beryllium.dart';
+import 'Boron.dart';
+import 'Carbon.dart';
+import 'Nitrogen.dart';
+import 'Oxygen.dart';
+import 'Fluorine.dart';
+import 'Neon.dart';
+import 'Sodium.dart';
+import 'Magnesium.dart';
 import 'Aluminum.dart';
-/**
- * This is the class for generating elements
- */
+import 'Silicon.dart';
+import 'Phosphorus.dart';
+import 'Sulfur.dart';
+import 'Chlorine.dart';
+import 'Argon.dart';
+import 'Potassium.dart';
+import 'Calcium.dart';
+import 'Scandium.dart';
+import 'Titanium.dart';
+import 'Vanadium.dart';
+import 'Chromium.dart';
+import 'Manganese.dart';
+import 'Iron.dart';
+import 'Cobalt.dart';
+import 'Nickel.dart';
+import 'Copper.dart';
+import 'Zinc.dart';
+import 'Gallium.dart';
+import 'Germanium.dart';
+import 'Arsenic.dart';
+import 'Selenium.dart';
+import 'Bromine.dart';
+import 'Krypton.dart';
+import 'Rubidium.dart';
+import 'Strontium.dart';
+import 'Yttrium.dart';
+import 'Zirconium.dart';
+import 'Niobium.dart';
+import 'Molybdenum.dart';
+import 'Technetium.dart';
+import 'Ruthenium.dart';
+import 'Rhodium.dart';
+import 'Palladium.dart';
+import 'Silver.dart';
+import 'Cadmium.dart';
+import 'Indium.dart';
+import 'Tin.dart';
+import 'Antimony.dart';
+import 'Tellurium.dart';
+import 'Iodine.dart';
+import 'Xenon.dart';
+import 'Cesium.dart';
+import 'Barium.dart';
+import 'Lanthanum.dart';
+import 'Cerium.dart';
+import 'Praseodymium.dart';
+import 'Neodymium.dart';
+import 'Promethium.dart';
+import 'Samarium.dart';
+import 'Europium.dart';
+import 'Gadolinium.dart';
+import 'Terbium.dart';
+import 'Dysprosium.dart';
+import 'Holmium.dart';
+import 'Erbium.dart';
+import 'Thulium.dart';
+import 'Ytterbium.dart';
+import 'Lutetium.dart';
+import 'Hafnium.dart';
+import 'Tantalum.dart';
+import 'Tungsten.dart';
+import 'Rhenium.dart';
+import 'Osmium.dart';
+import 'Iridium.dart';
+import 'Platinum.dart';
+import 'Gold.dart';
+import 'Mercury.dart';
+import 'Thallium.dart';
+import 'Lead.dart';
+import 'Bismuth.dart';
+import 'Polonium.dart';
+import 'Astatine.dart';
+import 'Radon.dart';
+import 'Francium.dart';
+import 'Radium.dart';
+import 'Actinium.dart';
+import 'Thorium.dart';
+import 'Protactinium.dart';
+import 'Uranium.dart';
+import 'Neptunium.dart';
+import 'Plutonium.dart';
+import 'Americium.dart';
+import 'Curium.dart';
+import 'Berkelium.dart';
+import 'Californium.dart';
+import 'Einsteinium.dart';
+import 'Fermium.dart';
+import 'Mendelevium.dart';
+import 'Nobelium.dart';
+import 'Lawrencium.dart';
+import 'Rutherfordium.dart';
+import 'Dubnium.dart';
+import 'Seaborgium.dart';
+import 'Bohrium.dart';
+import 'Hassium.dart';
+import 'Meitnerium.dart';
+import 'Darmstadtium.dart';
+import 'Roentgenium.dart';
+import 'Copernicium.dart';
+import 'Nihonium.dart';
+import 'Flerovium.dart';
+import 'Moscovium.dart';
+import 'Livermorium.dart';
+import 'Tennessine.dart';
+import 'Oganesson.dart';
+
+//This is the class for generating elements
 class ElementFactory {
-    /**
-     * This method generates the new element
-     * @param atomicnum - number of the element
-     * @return - returns the new element
-     */
-    Elements numberfactory(int atomicnum){
+
+//This method generates the new element @param atomicnum - number of the element @return - returns the new element
+    Elements? numberfactory(int atomicnum){
         switch (atomicnum){
-            default: return null;
             case(1): return new Hydrogen();
             case(2): return new Helium();
             case(3): return new Lithium();
@@ -131,11 +242,11 @@ class ElementFactory {
             case(116): return new Livermorium();
             case(117): return new Tennessine();
             case(118): return new Oganesson();
+            default: return null;
         }
     }
-    Elements stringfactory(String atomicnum){
+    Elements? stringfactory(String atomicnum){
         switch (atomicnum){
-            default: return null;
             case("Hydrogen"): return new Hydrogen();
             case("Helium"): return new Helium();
             case("Lithium"): return new Lithium();
@@ -254,6 +365,7 @@ class ElementFactory {
             case("Livermorium"): return new Livermorium();
             case("Tennessine"): return new Tennessine();
             case("Oganesson"): return new Oganesson();
+            default: return null;
         }
     }
     int? checknull(Map<String,int> hash, String shell){

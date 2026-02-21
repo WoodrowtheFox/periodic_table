@@ -1,7 +1,7 @@
 import 'package:periodic_table/Elements.dart';
 
 //This is for the data of Iridium
-class Actinium extends Elements{
+class Iridium extends Elements{
 //This is used to get the elements name as a string @return - the element name
     @override
     getElementname() {return "Iridium";}

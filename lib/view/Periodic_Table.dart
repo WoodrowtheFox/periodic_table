@@ -26,8 +26,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
       builder: (context){
         return AlertDialog(
           title: const Text('Element Quiz'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
+          content: ListView(
             children: [
               TextField(
                 autofocus: true,
@@ -83,8 +82,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
       builder: (context){
         return AlertDialog(
           title: const Text('Element Information'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
+          content: ListView(
             children: [
               Text('Element Name: ' + elementname),
               Text('Atomic Number: ' + atomicnum),
@@ -129,8 +127,8 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
           ),
           child: Image.asset(
             'BaseImages/Ag-base.png',
-            width: 10,
-            height: 10,
+            width: 238,
+            height: 150,
             fit: BoxFit.fill,
           ),
         ),

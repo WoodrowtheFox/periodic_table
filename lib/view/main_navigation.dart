@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'profile_screen.dart';
 import 'package:periodic_table/view/feedback_list_screen.dart';
 import 'package:periodic_table/PerodicGame.dart';
 import 'package:periodic_table/PerodicTable.dart';
@@ -17,6 +18,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
     const PerodicGame(),
     const PerodicTable(),
     const FeedbackListScreen(),
+    ProfileScreen(),
   ];
   void _onItemTapped(int index){
     setState(() {

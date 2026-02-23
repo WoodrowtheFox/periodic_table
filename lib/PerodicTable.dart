@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
 /**
  * This is the main class for the perdoic table to be displayed and interacted with
  */
-class PerodicTable extends Application{
-
+class PerodicTable extends StatefulWidget{
+    const PerodicTable({super.key});
     FeedbackWriter write = new FeedbackWriter();
     ElementFactory myfactory = new ElementFactory();
     private Elements element;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747186846135",
+    "project_id": "periodic-table-663c2",
+    "storage_bucket": "periodic-table-663c2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747186846135:android:5a851d93e762617f149032",
+        "android_client_info": {
+          "package_name": "com.example.periodic_table"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIdAI4jp9XE8lJPR_TZBuoF2PRqxr28IY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

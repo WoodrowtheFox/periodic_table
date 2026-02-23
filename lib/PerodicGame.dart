@@ -1,4 +1,7 @@
-class PerodicGame extends Application {
+import 'package:flutter/material.dart';
+
+class PerodicGame extends StatefulWidget {
+  const PerodicGame({super.key});
     PerodicGame(){
         gamepane = new Pane();
     }

@@ -117,8 +117,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(title: const Text('Perodic Table'),),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
         children: [ 
           ElevatedButton(
           onPressed: () {
@@ -130,8 +129,8 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
           ),
           child: Image.asset(
             'BaseImages/Ag-base.png',
-            width: 238,
-            height: 150,
+            width: 10,
+            height: 10,
             fit: BoxFit.fill,
           ),
         ),
@@ -1870,51 +1869,6 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
           ),
           child: Image.asset(
             'BaseImages/Zr-base.png',
-            width: 238,
-            height: 150,
-            fit: BoxFit.fill,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            index = 0;
-            _elementpopup();
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero, 
-          ),
-          child: Image.asset(
-            'Color-base.png',
-            width: 238,
-            height: 150,
-            fit: BoxFit.fill,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            index = 0;
-            _elementpopup();
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero, 
-          ),
-          child: Image.asset(
-            'Lanth-base.png',
-            width: 238,
-            height: 150,
-            fit: BoxFit.fill,
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            index = 0;
-            _elementpopup();
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero, 
-          ),
-          child: Image.asset(
-            'Acitides-base.png',
             width: 238,
             height: 150,
             fit: BoxFit.fill,

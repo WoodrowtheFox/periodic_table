@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile_screen.dart';
 import 'package:periodic_table/view/feedback_list_screen.dart';
-import 'package:periodic_table/PerodicGame.dart';
-import 'package:periodic_table/PerodicTable.dart';
+import 'package:periodic_table/view/Periodic_Table.dart';
 
 class MainNavigationScreen extends StatefulWidget{
   const MainNavigationScreen({super.key});
@@ -15,8 +14,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const PerodicGame(),
-    const PerodicTable(),
+    const PeriodicTable(),
     const FeedbackListScreen(),
     ProfileScreen(),
   ];

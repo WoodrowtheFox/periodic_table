@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:periodic_table/PerodicGame.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:periodic_table/view/Periodic_Table.dart';
 import 'view/main_navigation.dart';
 import 'view/login_screen.dart';
 
-void main() {
+void main () async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const PerodicApp());
 }
 
@@ -38,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>{
     Timer(const Duration(seconds: 3), () {
       Navigator.of(
         context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const PerodicGame()));
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const PeriodicTable()));
     });
   }
     @override

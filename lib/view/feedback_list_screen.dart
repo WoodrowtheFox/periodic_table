@@ -184,17 +184,6 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
             icon: const Icon(
               Icons.edit)
           ),
-        IconButton(
-          icon: const Icon(
-            Icons.search
-          ),
-          onPressed: () {
-            showSearch( 
-              context: context,
-              delegate: forsearch(),
-              );
-            },
-          ),
           ],
         ),
       body: 
@@ -214,61 +203,6 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
         },
       ),
       floatingActionButton: AddFAB(onPressed: _showAddFeedbackDialog),
-    );
-  }
-}
-class forsearch extends SearchDelegate {
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: Icon(Icons.clear),
-      ),
-    ];
-  }
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: Icon(Icons.arrow_back),
-    );
-  }
-  @override
-  Widget buildResults(BuildContext context) {
-    List<String> courselist = [];
-    for (var Feedback in feedbackpresenter.feedbacks) {
-      if (Feedback.name.toLowerCase().contains(query.toLowerCase())) {
-        courselist.add(Feedback.name);
-      }
-    }
-     return ListView.builder(
-      itemCount: courselist.length,
-      itemBuilder: (context, index) {
-        var result = courselist[index];
-        return ListTile(title: Text(result));
-      },
-    );
-  }
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    List<String> courselist = [];
-    for (var Feedback in feedbackpresenter.feedbacks) {
-      if (Feedback.name.toLowerCase().contains(query.toLowerCase())) {
-        courselist.add(Feedback.name);
-      }
-    }
-     return ListView.builder(
-      itemCount: courselist.length,
-      itemBuilder: (context, index) {
-        var result = courselist[index];
-        return ListTile(title: Text(result));
-      },
     );
   }
 }

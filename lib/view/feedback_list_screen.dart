@@ -3,6 +3,9 @@ import 'package:periodic_table/model/Feedback_model.dart';
 import 'package:periodic_table/model/Feedback_model.dart' as feedbackclass;
 import '../presenter/feedback_presenter.dart';
 import '../widgets/add_fab.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FeedbackListScreen extends StatefulWidget{
   const FeedbackListScreen({super.key});
@@ -10,6 +13,7 @@ class FeedbackListScreen extends StatefulWidget{
   @override
   State<FeedbackListScreen> createState() => _FeedbackListScreenState();
 }
+final User? user = FirebaseAuth.instance.currentUser;
 final FeedbackPresenter feedbackpresenter = FeedbackPresenter();
 class _FeedbackListScreenState extends State<FeedbackListScreen> {
   bool _isLoading = true;
@@ -110,7 +114,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
               TextField(
                 controller: _editedFeedbackController,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: 'What Feedback is to be changed?'),
+                decoration: const InputDecoration(hintText: 'Whatis the name of the Feedback to be changed?'),
                 onChanged: (value){
                 editedfeedbackname = value;
             },),
@@ -137,15 +141,17 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: (){
+              onPressed: () async{
                 if(editedfeedbackname.trim().isNotEmpty){
-                    setState((){
-                      if(_editedfeedback.trim().isNotEmpty){ 
-                        feedbackpresenter.editfeedback(getindex(), newfeedback.trim(), _editedfeedback.trim());}
-                      else{
-                        feedbackpresenter.editfeedback(getindexnodesc(), newfeedback.trim(), _editedfeedback.trim());}
-                    });
-                }
+                  try{ 
+                          await FirebaseFirestore.instance
+                          .collection('feedback')
+                          .doc(user?.uid)
+                          .update({'name': newfeedback,
+                                    'description': _editedfeedback});
+                          }catch (e) {print("Error updating: $e");}
+                    setState(() {
+                        feedbackpresenter.editfeedback(getindex(), newfeedback.trim(), _editedfeedback.trim());});}
                 Navigator.pop(context); //Close Dialog
               },
               child: const Text('Edit'),

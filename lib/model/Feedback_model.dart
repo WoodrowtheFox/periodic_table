@@ -23,7 +23,7 @@ class Feedback {
       final data = doc.data();
       return Feedback(
         name: data['name'],
-        feedback: data['feedback'],
+        feedback: data['description'],
       );
     }).toList();
   }

@@ -15,6 +15,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
 
   final List<Widget> _screens = [
     const PeriodicTable(),
+    const PeriodicTable(),
     const FeedbackListScreen(),
     ProfileScreen(),
   ];
@@ -46,6 +47,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
            BottomNavigationBarItem(
             icon: Icon(Icons.edit),
             label: 'Give Feedback',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),

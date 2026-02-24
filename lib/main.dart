@@ -7,43 +7,31 @@ import 'package:periodic_table/view/Periodic_Table.dart';
 import 'view/main_navigation.dart';
 import 'view/login_screen.dart';
 
-void main () async {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const PerodicApp());
+  runApp(const PeriodicTableApp());
 }
 
-class PerodicApp extends StatelessWidget {
-  const PerodicApp({super.key});
+class PeriodicTableApp extends StatelessWidget {
+  const PeriodicTableApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Perodic App',
+      title: 'Periodic Table App',
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const SplashScreen(),
     );
   }
 }
 
-class SplashScreen extends StatefulWidget{
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
 
-class _SplashScreenState extends State<SplashScreen>{
   @override
-  void initState(){
-    super.initState();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (_) => const PeriodicTable()));
-    });
-  }
-    @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),

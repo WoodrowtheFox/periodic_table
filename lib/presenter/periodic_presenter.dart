@@ -119,6 +119,7 @@ import 'package:periodic_table/Elements/Livermorium.dart';
 import 'package:periodic_table/Elements/Tennessine.dart';
 import 'package:periodic_table/Elements/Oganesson.dart';
 
+// This is the presenter used for the periodic table
 class PeriodicPresenter {
   final List<Elements> _elements = [
   Hydrogen(), Helium(), Lithium(), Beryllium(), Boron(), Carbon(), Nitrogen(), Oxygen(), Fluorine(), Neon(),
@@ -139,10 +140,12 @@ class PeriodicPresenter {
   Copernicium(), Nihonium(), Flerovium(), Moscovium(), Livermorium(), Tennessine(), 
   Oganesson(), Zinc()];
 
+  // Gets an element from the list
   Elements getelement(int index){
     return _elements[index];
   }
 
+  // gets the entire list of elements
   List<Elements> getlist(){
     return _elements;
   }

@@ -1,5 +1,5 @@
 import '../model/auth_model.dart';
-
+// This is the presenter for the auth model
 class AuthPresenter {
   final AuthModel _model = AuthModel();
 

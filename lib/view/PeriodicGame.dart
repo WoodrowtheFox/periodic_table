@@ -99,27 +99,27 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
   }
 
   void check(){
+    Map<String, int> shell = new Map<String, int>();
     for(Elements i in elementlist){
       if(i.getElementname() == _selectedElement){
-        Map<String, int> myhash = i.getshelltotals();
-        if(myhash["1s"] == ones && myhash["2s"] == twos && myhash["2p"] == twop && myhash["3s"] == threes && myhash["3p"] == threep &&
-          myhash["3d"] == threed && myhash["4s"] == fours && myhash["4p"] == fourp && myhash["4d"] == fourd && myhash["4f"] == fourf &&
-          myhash["5s"] == fives && myhash["5p"] == fivep && myhash["5d"] == fived && myhash["5f"] == fivef && myhash["6s"] == sixs &&
-          myhash["6p"] == sixp && myhash["6d"] == sixd && myhash["7s"] == sevens && myhash["7p"] == sevenp){
+        shell = i.getshelltotals();}}
+        if(shell["1s"] == ones && shell["2s"] == twos && shell["2p"] == twop && shell["3s"] == threes && shell["3p"] == threep &&
+          shell["3d"] == threed && shell["4s"] == fours && shell["4p"] == fourp && shell["4d"] == fourd && shell["4f"] == fourf &&
+          shell["5s"] == fives && shell["5p"] == fivep && shell["5d"] == fived && shell["5f"] == fivef && shell["6s"] == sixs &&
+          shell["6p"] == sixp && shell["6d"] == sixd && shell["7s"] == sevens && shell["7p"] == sevenp){
           setState(() {
             checkstring = "yes";
           });
         }
+        else{setState(() {checkstring = "no";});}
       }
-      else{setState(() {checkstring = "no";});}
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Correct?' + checkstring),
+        title: Text('Correct?: ' + checkstring),
         actions: [
           SizedBox(
           height: 30,

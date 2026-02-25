@@ -30,7 +30,6 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
 
   Future<void> _loadfeedback() async {
     await feedbackpresenter.loadfeedback();
-    setState(() => _isLoading = false);
   }
 
   void _showAddFeedbackDialog(){

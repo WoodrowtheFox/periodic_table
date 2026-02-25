@@ -58,6 +58,10 @@ class Barium extends Elements{
         myhash["5s"] = 2;
         myhash["5p"] = 6;
         myhash["6s"] = 2;
+        myhash["6p"] = 0;
+        myhash["6d"] = 0;
+        myhash["7s"] = 0;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

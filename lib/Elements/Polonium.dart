@@ -61,6 +61,9 @@ class Polonium extends Elements{
         myhash["5d"] = 10;
         myhash["6s"] = 2;
         myhash["6p"] = 4;
+        myhash["6d"] = 0;
+        myhash["7s"] = 0;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

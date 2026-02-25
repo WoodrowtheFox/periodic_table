@@ -63,6 +63,7 @@ class Fermium extends Elements{
         myhash["6s"] = 2;
         myhash["6p"] = 6;
         myhash["7s"] = 2;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

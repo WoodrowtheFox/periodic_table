@@ -64,6 +64,7 @@ class Bohrium extends Elements{
         myhash["6p"] = 6;
         myhash["6d"] = 5;
         myhash["7s"] = 2;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

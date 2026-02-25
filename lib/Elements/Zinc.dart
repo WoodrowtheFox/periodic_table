@@ -53,6 +53,18 @@ class Zinc extends Elements{
         myhash["3p"] = 6;
         myhash["3d"] = 10;
         myhash["4s"] = 2;
+        myhash["4p"] = 0;
+        myhash["4d"] = 0;
+        myhash["4f"] = 0;
+        myhash["5s"] = 0;
+        myhash["5p"] = 0;
+        myhash["5d"] = 0;
+        myhash["5f"] = 0;
+        myhash["6s"] = 0;
+        myhash["6p"] = 0;
+        myhash["6d"] = 0;
+        myhash["7s"] = 0;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

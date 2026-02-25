@@ -63,6 +63,7 @@ class Thorium extends Elements{
         myhash["6p"] = 6;
         myhash["6d"] = 2;
         myhash["7s"] = 2;
+        myhash["7p"] = 0;
         return myhash;
     }
 }

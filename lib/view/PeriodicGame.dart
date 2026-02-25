@@ -12,7 +12,7 @@ final PeriodicPresenter _presenter = PeriodicPresenter();
 
 String? _selectedElement;
 final List<Elements> elementlist = _presenter.getlist();
-String checkbool = "false";
+String checkstring = " ";
 
 int ones = 0;
 int twos = 0;
@@ -94,7 +94,7 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
      sixd = 0;
      sevens = 0;
      sevenp = 0;
-     checkbool = "false";
+     checkstring = " ";
   });
   }
 
@@ -107,10 +107,11 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
           myhash["5s"] == fives && myhash["5p"] == fivep && myhash["5d"] == fived && myhash["5f"] == fivef && myhash["6s"] == sixs &&
           myhash["6p"] == sixp && myhash["6d"] == sixd && myhash["7s"] == sevens && myhash["7p"] == sevenp){
           setState(() {
-            checkbool = "true";
+            checkstring = "yes";
           });
         }
       }
+      else{setState(() {checkstring = "no";});}
     }
   }
 
@@ -118,7 +119,7 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perodic Table -> Is your answer correct? - ' + checkbool),
+        title: Text('Correct?' + checkstring),
         actions: [
           SizedBox(
           height: 30,
@@ -162,6 +163,26 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
         ],),
       body: ListView(
         children: [ 
+        Text('Current Totals:'),
+        Text('1s: $ones'),
+        Text('2s: $twos'),
+        Text('2p: $twop'),
+        Text('3s: $threes'),
+        Text('3p: $threep'),
+        Text('3d: $threed'),
+        Text('4s: $fours'),
+        Text('4p: $fourp'),
+        Text('4d: $fourd'),
+        Text('4f: $fourf'),
+        Text('5s: $fives'),
+        Text('5p: $fivep'),
+        Text('5d: $fived'),
+        Text('5f: $fivef'),
+        Text('6s: $sixs'),
+        Text('6p: $sixp'),
+        Text('6d: $sixd'),
+        Text('7s: $sevens'),
+        Text('7p: $sevenp'),
         ElevatedButton(
           onPressed: () {update1s(1);},
           style: ElevatedButton.styleFrom(

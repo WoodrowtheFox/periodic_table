@@ -147,8 +147,8 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
                           await FirebaseFirestore.instance
                           .collection('feedback')
                           .doc(user?.uid)
-                          .update({'name': newfeedback,
-                                    'description': _editedfeedback});
+                          .update({'name': newfeedback.trim(),
+                                    'description': _editedfeedback.trim()});
                           }catch (e) {print("Error updating: $e");}
                     setState(() {
                         feedbackpresenter.editfeedback(getindex(), newfeedback.trim(), _editedfeedback.trim());});}

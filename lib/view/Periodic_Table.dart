@@ -11,6 +11,20 @@ class PeriodicTable extends StatefulWidget {
   final PeriodicPresenter _presenter = PeriodicPresenter();
   int currentIndex = 0;
   int index = 0;
+  TextEditingController atomicnum_masscont = new TextEditingController();
+  TextEditingController Period_groupcont = new TextEditingController();
+  TextEditingController valeleccont = new TextEditingController();
+  TextEditingController family_namecont = new TextEditingController();
+  TextEditingController commoncont = new TextEditingController();
+  TextEditingController ioniccont = new TextEditingController();
+
+  bool atomicnum_massanswer = false;
+  bool Period_groupanswer = false;
+  bool valelecanswer = false;
+  bool family_nameanswer = false;
+  bool commonuseanswer = false;
+  bool ionicanswer = false;
+
   String elementname = '';
   String atomicnum = '';
   String atomicmass = '';
@@ -37,6 +51,38 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
         ionicsate = element.getionicstate().toString();
       });
     }
+    void _checkanswer(){
+      if(atomicnum_masscont.toString().trim() == (atomicnum + atomicmass) ||atomicnum_masscont.toString().trim() == (atomicmass+ atomicnum)){
+        setState(() {
+          atomicnum_massanswer = true;
+        });
+      }
+      if(Period_groupcont.toString().trim() == (groupnum + periodnum) ||Period_groupcont.toString().trim() == (periodnum + groupnum)){
+        setState(() {
+          Period_groupanswer = true;
+        });
+      }
+      if(valeleccont.toString().trim() == (valelec)){
+        setState(() {
+          valelecanswer = true;
+        });
+      }
+      if(family_namecont.toString().trim() == (familyname)){
+        setState(() {
+          family_nameanswer = true;
+        });
+      }
+      if(commoncont.toString().trim() == (commonuse)){
+        setState(() {
+          commonuseanswer = true;
+        });
+      }
+      if(ioniccont.toString().trim() == (ionicsate)){
+        setState(() {
+          ionicanswer = true;
+        });
+      }
+    }
     void _Quizpopup(){
     showDialog(
       context: context, 
@@ -47,37 +93,77 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                controller: atomicnum_masscont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the Atomic Number and Mass?'),
+                style: TextStyle(
+                decoration: atomicnum_massanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+              ),
               ),
               TextField(
+                controller: Period_groupcont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the Period and Group Number?'),
+                style: TextStyle(
+                decoration: Period_groupanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+              ),
               ),
               TextField(
+                controller: valeleccont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the number of Valence Electrons?'),
+                style: TextStyle(
+                decoration: valelecanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+              ),
               ),
               TextField(
+                controller: family_namecont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the Family Name?'),
+                style: TextStyle(
+                decoration: family_nameanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+              ),
               ),
               TextField(
+                controller: commoncont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What are(if any) the Common Uses?'),
+                style: TextStyle(
+                decoration: commonuseanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+              ),
               ),
               TextField(
+                controller: ioniccont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is its Ionic State?'),
+                style: TextStyle(
+                decoration: ionicanswer
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
               ),
-            ],
+          )],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Close'),
             ),
-          ],
+            TextButton(
+              onPressed: () async{
+                _checkanswer();
+              },
+              child: const Text('Check'),
+        )],
         );
       }
       );
@@ -122,7 +208,8 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: const Text('Perodic Table'),),
+      appBar: AppBar(
+        title: const Text('Perodic Table'),),
       body: ListView(
         children: [ 
         ElevatedButton(

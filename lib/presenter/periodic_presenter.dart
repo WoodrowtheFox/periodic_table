@@ -142,4 +142,8 @@ class PeriodicPresenter {
   Elements getelement(int index){
     return _elements[index];
   }
+
+  List<Elements> getlist(){
+    return _elements;
+  }
 }

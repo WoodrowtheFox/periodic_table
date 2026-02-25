@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:periodic_table/view/PeriodicGame.dart';
 import 'profile_screen.dart';
 import 'package:periodic_table/view/feedback_list_screen.dart';
 import 'package:periodic_table/view/Periodic_Table.dart';
@@ -15,7 +16,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
 
   final List<Widget> _screens = [
     const PeriodicTable(),
-    const PeriodicTable(),
+    const PeriodicGame(),
     const FeedbackListScreen(),
     ProfileScreen(),
   ];

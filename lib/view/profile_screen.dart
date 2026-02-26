@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../presenter/auth_presenter.dart';
 import 'login_screen.dart';
-
+// This is the file used to display the profile of the user currently signed in
 class ProfileScreen extends StatelessWidget{
     final AuthPresenter _presenter = AuthPresenter();
 

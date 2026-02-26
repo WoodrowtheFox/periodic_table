@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:periodic_table/presenter/periodic_presenter.dart';
 import 'package:periodic_table/Elements.dart';
-
+// This is the file for displaying all the elements of the periodic table
 class PeriodicTable extends StatefulWidget {
   const PeriodicTable({super.key});
     
@@ -35,6 +35,7 @@ class PeriodicTable extends StatefulWidget {
   String commonuse = '';
   String ionicsate = '';
 class _PerodicGameScreenState extends State<PeriodicTable> {
+    // this is used to change the data in the pop-up menu for the element button that was pressed
     void updateElementData(int index){
       var element = _presenter.getelement(index);
 
@@ -51,6 +52,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
         ionicsate = element.getionicstate().toString();
       });
     }
+    // This is used to check the users answer in the quiz
     void _checkanswer(){
       if(atomicnum_masscont.toString().trim() == (atomicnum + atomicmass) ||atomicnum_masscont.toString().trim() == (atomicmass+ atomicnum)){
         setState(() {
@@ -83,6 +85,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
         });
       }
     }
+    // This is to display a quiz that users can take about an element
     void _Quizpopup(){
     showDialog(
       context: context, 
@@ -168,6 +171,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
       }
       );
   }
+    // this is used to display data about an element after the button is pressed
     void _elementpopup(){
     showDialog(
       context: context, 

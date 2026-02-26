@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:periodic_table/Elements.dart';
 import 'package:periodic_table/presenter/periodic_presenter.dart';
-
+// this is the file for the game where people can try and find out the numbers of electrons in each shell
 class PeriodicGame extends StatefulWidget{
   const PeriodicGame({super.key});
 
@@ -35,6 +35,7 @@ int sevens = 0;
 int sevenp = 0;
 class _PeriodicGameScreenState extends State<PeriodicGame> {
 
+  // Each one of these is used to update how many button presses for each shell
   void update1s(int onesadd){setState(() {ones += onesadd;});}
 
   void update2s(int twosadd){setState(() {twos += twosadd;});}
@@ -73,6 +74,7 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
 
   void update7p(int sevenpadd){setState(() {sevenp += sevenpadd;});}
 
+  // This is used to reset the shell
   void clear(){
     setState(() {
      ones = 0;
@@ -98,6 +100,7 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
   });
   }
 
+  // this is used to check if the shell totals are correct
   void check(){
     Map<String, int> shell = new Map<String, int>();
     for(Elements i in elementlist){

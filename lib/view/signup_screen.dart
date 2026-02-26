@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../presenter/auth_presenter.dart';
 import 'login_screen.dart';
 import 'main_navigation.dart';
-
+// This is the file for signing up new users
 class SignupScreen extends StatefulWidget{
   const SignupScreen({super.key});
 

@@ -3,7 +3,7 @@ import 'package:periodic_table/view/PeriodicGame.dart';
 import 'profile_screen.dart';
 import 'package:periodic_table/view/feedback_list_screen.dart';
 import 'package:periodic_table/view/Periodic_Table.dart';
-
+// This is the file that is for the navigation bar on the bottom of the app
 class MainNavigationScreen extends StatefulWidget{
   const MainNavigationScreen({super.key});
 

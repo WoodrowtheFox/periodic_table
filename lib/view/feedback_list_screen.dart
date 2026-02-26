@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// This is the file for the display of the feedback
 class FeedbackListScreen extends StatefulWidget{
   const FeedbackListScreen({super.key});
 
@@ -22,16 +23,19 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
   String newfeedback = ' ';
   String _editedfeedback = ' ';
 
+  // Used to load any previous feedback
   @override
   void initState() {
     super.initState();
     _loadfeedback();
   }
 
+  // Used to load any previous feedback
   Future<void> _loadfeedback() async {
     await feedbackpresenter.loadfeedback();
   }
 
+  // This is for the pop-up window to add any new feedback
   void _showAddFeedbackDialog(){
     String name = '';
     String feedback = '';
@@ -94,6 +98,8 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
                     }
                     return index;
   }
+
+  // This is the pop-up that will be used if a person wishes to edit there feedback
   void editFeedback() {
 
   final TextEditingController _editedFeedbackController = TextEditingController();
@@ -139,6 +145,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
               onPressed: () => Navigator.pop(context), //Cancel Button
               child: const Text('Cancel'),
             ),
+            // Edits the database with the new feedback
             TextButton(
               onPressed: () async{
                 if(editedfeedbackname.trim().isNotEmpty){
@@ -160,9 +167,16 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
       },
     );
   }
+  //Clears all of the feedback in the app and in the data base
   void clear(){
-    setState(() {
+    setState(() async{
       feedbackpresenter.feedbacks.clear();
+      final feedbackcollection = FirebaseFirestore.instance.collection('feeback');
+      final snapshots = await feedbackcollection.get();
+
+      for(var doc in snapshots.docs){
+        await doc.reference.delete();
+      }
     });
   }
   @override

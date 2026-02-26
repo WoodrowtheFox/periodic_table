@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:periodic_table/view/Periodic_Table.dart';
 import 'view/main_navigation.dart';
 import 'view/login_screen.dart';
-
+// This is the main class of the app that opens it and then navigates the main navigation if someone is signed in, otherwise goes to the login screen
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,7 +16,7 @@ void main() async{
 class PeriodicTableApp extends StatelessWidget {
   const PeriodicTableApp({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

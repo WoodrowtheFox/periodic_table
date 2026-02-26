@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../presenter/auth_presenter.dart';
 import 'main_navigation.dart';
 import 'signup_screen.dart';
-
+// This is the file for the login screen
 class LoginScreen extends StatefulWidget{
   const LoginScreen({super.key});
 
@@ -17,7 +17,7 @@ class _LoginScreenState extends State<LoginScreen>{
   final _presenter = AuthPresenter();
 
   String? _errorMessage;
-
+  
   void _handleLogin() async {
     final error = await _presenter.login(
         _emailcontroller.text.trim(),

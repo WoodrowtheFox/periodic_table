@@ -11,10 +11,16 @@ class PeriodicTable extends StatefulWidget {
   final PeriodicPresenter _presenter = PeriodicPresenter();
   int currentIndex = 0;
   int index = 0;
-  TextEditingController atomicnum_masscont = new TextEditingController();
-  TextEditingController Period_groupcont = new TextEditingController();
+
+  String score = "0";
+  int scorenum = 0;
+  
+  TextEditingController atomicmasscont = new TextEditingController();
+  TextEditingController atomicnumcont = new TextEditingController();
+  TextEditingController periodcont = new TextEditingController();
+  TextEditingController groupcont = new TextEditingController();
   TextEditingController valeleccont = new TextEditingController();
-  TextEditingController family_namecont = new TextEditingController();
+  TextEditingController familynamecont = new TextEditingController();
   TextEditingController commoncont = new TextEditingController();
   TextEditingController ioniccont = new TextEditingController();
 
@@ -54,108 +60,85 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
     }
     // This is used to check the users answer in the quiz
     void _checkanswer(){
-      if(atomicnum_masscont.toString().trim() == (atomicnum + atomicmass) ||atomicnum_masscont.toString().trim() == (atomicmass+ atomicnum)){
-        setState(() {
-          atomicnum_massanswer = true;
-        });
+      if(atomicnumcont.text == (atomicnum)){
+        scorenum += 1;
       }
-      if(Period_groupcont.toString().trim() == (groupnum + periodnum) ||Period_groupcont.toString().trim() == (periodnum + groupnum)){
-        setState(() {
-          Period_groupanswer = true;
-        });
+      if(atomicmasscont.text == (atomicmass)){
+        scorenum += 1;
       }
-      if(valeleccont.toString().trim() == (valelec)){
-        setState(() {
-          valelecanswer = true;
-        });
+      if(periodcont.text == (periodnum)){
+        scorenum += 1;
       }
-      if(family_namecont.toString().trim() == (familyname)){
-        setState(() {
-          family_nameanswer = true;
-        });
+      if(groupcont.text == (groupnum)){
+        scorenum += 1;
       }
-      if(commoncont.toString().trim() == (commonuse)){
-        setState(() {
-          commonuseanswer = true;
-        });
+      if(valeleccont.text == (valelec)){
+        scorenum += 1;
       }
-      if(ioniccont.toString().trim() == (ionicsate)){
-        setState(() {
-          ionicanswer = true;
-        });
+      if(familynamecont.text == (familyname)){
+        scorenum += 1;
       }
+      if(commoncont.text == (commonuse)){
+        scorenum += 1;
+      }
+      if(ioniccont.text == (ionicsate)){
+        scorenum += 1;
+      }
+      setState(() {score = scorenum.toString();});
     }
     // This is to display a quiz that users can take about an element
     void _Quizpopup(){
+    score = "0";
     showDialog(
       context: context, 
       builder: (context){
         return AlertDialog(
           title: const Text('Element Quiz'),
-          content: Column(
+          content: SingleChildScrollView(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                controller: atomicnum_masscont,
+                controller: atomicnumcont,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: 'What is the Atomic Number and Mass?'),
-                style: TextStyle(
-                decoration: atomicnum_massanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-              ),
+                decoration: const InputDecoration(hintText: 'What is the Atomic Number?'),
               ),
               TextField(
-                controller: Period_groupcont,
+                controller: atomicmasscont,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: 'What is the Period and Group Number?'),
-                style: TextStyle(
-                decoration: Period_groupanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
+                decoration: const InputDecoration(hintText: 'What is the Atomic Mass?'),
               ),
+              TextField(
+                controller: periodcont,
+                autofocus: true,
+                decoration: const InputDecoration(hintText: 'What is the Period Number?'),
+              ),
+              TextField(
+                controller: groupcont,
+                autofocus: true,
+                decoration: const InputDecoration(hintText: 'What is the Group Number?'),
               ),
               TextField(
                 controller: valeleccont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the number of Valence Electrons?'),
-                style: TextStyle(
-                decoration: valelecanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-              ),
               ),
               TextField(
-                controller: family_namecont,
+                controller: familynamecont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the Family Name?'),
-                style: TextStyle(
-                decoration: family_nameanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-              ),
               ),
               TextField(
                 controller: commoncont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What are(if any) the Common Uses?'),
-                style: TextStyle(
-                decoration: commonuseanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-              ),
               ),
               TextField(
                 controller: ioniccont,
                 autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is its Ionic State?'),
-                style: TextStyle(
-                decoration: ionicanswer
-                ? TextDecoration.lineThrough
-                : TextDecoration.none,
-              ),
           )],
-          ),
+          ),),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -185,7 +168,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
               Text('Element Name: ' + elementname),
               Text('Atomic Number: ' + atomicnum),
               Text('Atomic Mass: ' + atomicmass),
-              Text('Group Number: ' + atomicmass),
+              Text('Group Number: ' + groupnum),
               Text('Periodic Number: ' + periodnum),
               Text('Valance Electrons: ' + valelec),
               Text('Family Name: ' + familyname),
@@ -213,7 +196,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Perodic Table'),),
+        title: Text('Quiz Score: ' + score),),
       body: ListView(
         children: [ 
         ElevatedButton(

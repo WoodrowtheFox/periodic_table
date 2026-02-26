@@ -33,6 +33,9 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
   // Used to load any previous feedback
   Future<void> _loadfeedback() async {
     await feedbackpresenter.loadfeedback();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   // This is for the pop-up window to add any new feedback

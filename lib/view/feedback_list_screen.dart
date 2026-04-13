@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:periodic_table/model/Feedback_model.dart';
 import '../presenter/feedback_presenter.dart';
 import '../widgets/add_fab.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/Feedback_model.dart';
 
 class FeedbackListScreen extends StatefulWidget{
@@ -13,26 +10,26 @@ class FeedbackListScreen extends StatefulWidget{
   @override
   State<FeedbackListScreen> createState() => _FeedbackListScreenState();
 }
-final User? user = FirebaseAuth.instance.currentUser;
-final FeedbackPresenter feedbackpresenter = FeedbackPresenter();
+
 class _FeedbackListScreenState extends State<FeedbackListScreen> {
+  final User? user = FirebaseAuth.instance.currentUser;
+  final FeedbackPresenter feedbackpresenter = FeedbackPresenter();
   bool _isLoading = true;
 
-  String editedfeedbackname = ' ';
-  String newfeedback = ' ';
-  String _editedfeedback = ' ';
-  Feedback? delete_index;
+  String newfeedback = '';
+  String _editedfeedback = '';
+  Feedbacks? delete_index;
+  Feedbacks? edit_index;
 
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.authStateChanges().firstWhere((user) => user != null);
-    _loadfeedback();
+    FirebaseAuth.instance.authStateChanges().firstWhere((user) => user != null).then((_) => _loadfeedback());
   }
 
   Future<void> _loadfeedback() async {
     try {
-    await feedbackpresenter.loadfeedback();
+    await feedbackpresenter.loadfeedbacks();
   } finally {
     if (mounted) {
       setState(() {
@@ -73,7 +70,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
             TextButton(
               onPressed: () async{
                 if (name.trim().isNotEmpty){
-                  await feedbackpresenter.addfeedback(name.trim(), feedback);
+                  await feedbackpresenter.addfeedback(DateTime.now(), name.trim(), feedback);
                   setState(() {});
                   Navigator.pop(context);
                 }
@@ -85,28 +82,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
       }
       );
   }
-  int getindex(){
-    int index = -1;
-    for(feedbackclass.Feedback i in feedbackpresenter.feedbacks){
-                      if(i.name == editedfeedbackname){
-                        index = feedbackpresenter.feedbacks.indexOf(i);
-                      }
-                    }
-                    return index;
-  }
-  int getindexnodesc(){
-    int index = -1;
-    for(feedbackclass.Feedback i in feedbackpresenter.feedbacks){
-                      if(i.name == editedfeedbackname){
-                        _editedfeedback = i.feedback.toString();
-                        index = feedbackpresenter.feedbacks.indexOf(i);
-                      }
-                    }
-                    return index;
-  }
   void editFeedback() {
-
-  final TextEditingController _editedFeedbackController = TextEditingController();
 
   final TextEditingController newFeedbackame = TextEditingController();
 
@@ -114,60 +90,75 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
   showDialog(
       context: context,
       builder: (context) {
+      return StatefulBuilder(
+          builder: (context, setDialogState) {
         return AlertDialog(
           title: const Text('Edit Feedback'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
+          content: SizedBox(
+            height: 200,
+            width: 100, 
+            child:ListView(
             children: <Widget>[
-              TextField(
-                controller: _editedFeedbackController,
-                autofocus: true,
-                decoration: const InputDecoration(hintText: 'What is the name of the Feedback to be changed?'),
-                onChanged: (value){
-                editedfeedbackname = value;
-            },),
+            Text("Which entry should be edited?", style: TextStyle(fontSize: 18)),
+              SizedBox(
+                height: 40,
+                width: 75,
+                child : DropdownButton<Feedbacks>(
+                hint: const Text(
+                  'Please select one to edit',
+                  ),
+                  isDense: true,
+                  isExpanded: true,
+                  value: edit_index,
+                  onChanged: (value){
+                    setDialogState(() {
+                      edit_index = value;
+                    });
+                  },
+                  items: [
+                    ...feedbackpresenter.feedback.map(
+                      (Feedback) => DropdownMenuItem(value: Feedback, child: Text(Feedback.feedback))),
+                  ],
+                ),),
             TextField(
                 controller: newFeedbackame,
-                autofocus: true,
                 decoration: const InputDecoration(hintText: 'What is the new Feedback name?'),
                 onChanged: (value){
                 newfeedback = value;
             },),
               TextField(
             controller: _editedFeedbackDescriptonController,
-            autofocus:  true,
             decoration: const InputDecoration(hintText: 'What is the new Feedback description?'),
             onChanged: (value){
               _editedfeedback = value;
             }
           ),
             ],
-          ),
+          )),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context), //Cancel Button
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () async{
-                if(editedfeedbackname.trim().isNotEmpty){
-                  try{ 
-                          await FirebaseFirestore.instance
-                          .collection('feedback')
-                          .doc(user?.uid)
-                          .update({'name': newfeedback.trim(),
-                                    'description': _editedfeedback.trim()});
-                          }catch (e) {print("Error updating: $e");}
-                    setState(() {
-                        feedbackpresenter.editfeedback(getindex(), newfeedback.trim(), _editedfeedback.trim());});}
+              onPressed: () async {
+                if (edit_index == null) return;
+                await feedbackpresenter.updatefeedback(
+                edit_index!,
+                newfeedback.trim(),
+                _editedfeedback.trim(),
+                DateTime.now(),
+                );
+                setState(() {
+                  edit_index = null;
+                });
                 Navigator.pop(context); //Close Dialog
               },
               child: const Text('Edit'),
             ),
           ],
         );
-      },
+      },);},
     );
   }
   void clear(){
@@ -187,7 +178,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
               SizedBox(
                 height: 40,
                 width: 75,
-                child : DropdownButton<Feedback>(
+                child : DropdownButton<Feedbacks>(
                 hint: const Text(
                   'Please select one to delete',
                   ),
@@ -200,30 +191,27 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
                     });
                   },
                   items: [
-                      DropdownMenuItem<Feedback>(
-                      value: Feedback(name: 'Ethan', feedback: 'Dev')
-                    ),
-                    ...feedbackpresenter.feedbacks.map(
+                    ...feedbackpresenter.feedback.map(
                       (Feedback) => DropdownMenuItem(value: Feedback, child: Text(Feedback.feedback))),
-                    ),
                   ],
                 ),),
               TextButton(
               onPressed: () async{
-
-                  setState((){feedbackpresenter.feedbacks.remove(delete_index);});
-                  delete_index = null;
+                if (delete_index == null) return;
+                await feedbackpresenter.deletefeedback(delete_index!);
+                setState(() {
+                delete_index = null;
+                _isLoading = true;
+                });
+                await _loadfeedback();
                   Navigator.pop(context);
               },
               child: const Text('Delete Entry'),
         ),
-        ])));
-      });
-    });
-  }
+        ])));});});}
   @override
   Widget build(BuildContext context){
-    final feedbacks = feedbackpresenter.feedbacks;
+    final feedbacks = feedbackpresenter.feedback;
 
     return Scaffold(
       appBar: AppBar(title: const Text('Give Feedback'),
@@ -250,10 +238,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
           final feedback = feedbacks[index];
           return ListTile(
             title: Text(feedback.name),
-            subtitle: 
-              feedback.feedback != null 
-              ? Text(feedback.feedback) 
-              : null,
+            subtitle: Text(feedback.feedback)
           );
         },
       ),

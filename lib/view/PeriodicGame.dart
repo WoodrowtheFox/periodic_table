@@ -132,7 +132,7 @@ class _PeriodicGameScreenState extends State<PeriodicGame> {
               'Select Element',
               style: TextStyle(color: Colors.white),
             ),
-            dropdownColor: Colors.blue[100],
+            dropdownColor: Colors.black,
             isDense: true,
             isExpanded: true,
             value: _selectedElement,

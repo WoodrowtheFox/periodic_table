@@ -1,26 +1,42 @@
 import '../model/Feedback_model.dart';
-// This is the presenter for feedback
+
+final List<Feedbacks> _feedbacks = [];
+
 class FeedbackPresenter {
-  final List<Feedback> _feedback = [];
+  
+  List<Feedbacks> get feedback => _feedbacks;
 
-  List<Feedback> get feedbacks => _feedback;
-
-  // Used for loading previous feedbacks
-  Future<void> loadfeedback() async {
-    final fetched = await Feedback.fetchfeedback();
-    _feedback
+  //Loading feedback
+  Future<void> loadfeedbacks() async {
+    final fetched = await Feedbacks.fetchfeedback();
+    _feedbacks
       ..clear()
       ..addAll(fetched);
   }
-
-  // This is used for adding new feedback to a database
-  Future<void> addfeedback(String name, String feedback) async {
-    await Feedback.addfeedback(name, feedback);
-    _feedback.add(Feedback(name: name, feedback: feedback));
+  //Adding feedback
+  Future<void> addfeedback(DateTime date, String name, String feedback) async {
+    await Feedbacks.addfeedback(name, feedback, date);
+    _feedbacks.add(Feedbacks(
+      date: date, 
+      name : name,
+      feedback: feedback,
+    ));
   }
-   // This is used to edit previous feedbacks
-  void editfeedback(int index, String name, String feedback){
-    _feedback[index].name = name;
-    _feedback[index].feedback = feedback;
+  //Deleting a feedback entry
+  Future<void> deletefeedback(Feedbacks feedbacks) async {
+    await Feedbacks.deletefeedback(feedbacks);
+    feedback.remove(feedbacks);
+  }
+  //Updating a previous feedback
+  Future<void> updatefeedback(Feedbacks feedbackedit, String name, String feedbacks, DateTime date) async {
+    await Feedbacks.updatefeedback(feedbackedit, Feedbacks(name: name, feedback: feedbacks, date: date));
+    Feedbacks? remove;
+    for(Feedbacks i in feedback){
+      if(i.name == feedbackedit.name){
+        remove = i;
+      }
+    }
+    feedback.remove(remove);
+    feedback.add(Feedbacks(name: name, feedback: feedbacks, date: date));
   }
 }

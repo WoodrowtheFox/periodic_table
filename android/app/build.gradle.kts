@@ -7,7 +7,7 @@ plugins {
 }
 dependencies {
   // Import the Firebase BoM
-  implementation(platform("com.google.firebase:firebase-bom:34.9.0"))
+  implementation(platform("com.google.firebase:firebase-bom:34.12.0"))
 }
 android {
     namespace = "com.example.periodic_table"

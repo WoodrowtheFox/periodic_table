@@ -102,7 +102,6 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
     }
     // This is to display a quiz that users can take about an element
     void _Quizpopup(){
-    score = "0";
     showDialog(
       context: context, 
       builder: (context){
@@ -206,7 +205,7 @@ class _PerodicGameScreenState extends State<PeriodicTable> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz Score: ' + score),),
+        title: Text('Quiz Score: ' + correct.toString()),),
       body: ListView(
         children: [ 
         ElevatedButton(

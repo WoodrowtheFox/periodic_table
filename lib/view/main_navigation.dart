@@ -38,11 +38,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>{
         onTap: _onItemTapped,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.science),
             label: 'Perodic Table',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
+            icon: Icon(Icons.gamepad),
             label: 'Perodic Game',
           ),
            BottomNavigationBarItem(

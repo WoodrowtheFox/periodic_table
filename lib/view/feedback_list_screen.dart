@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:periodic_table/model/Feedback_model.dart';
-import 'package:periodic_table/model/Feedback_model.dart' as feedbackclass;
 import '../presenter/feedback_presenter.dart';
 import '../widgets/add_fab.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../model/Feedback_model.dart';
 
 class FeedbackListScreen extends StatefulWidget{
   const FeedbackListScreen({super.key});
@@ -21,15 +21,25 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
   String editedfeedbackname = ' ';
   String newfeedback = ' ';
   String _editedfeedback = ' ';
+  Feedback? delete_index;
 
   @override
   void initState() {
     super.initState();
+    FirebaseAuth.instance.authStateChanges().firstWhere((user) => user != null);
     _loadfeedback();
   }
 
   Future<void> _loadfeedback() async {
+    try {
     await feedbackpresenter.loadfeedback();
+  } finally {
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
   }
 
   void _showAddFeedbackDialog(){
@@ -113,7 +123,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
               TextField(
                 controller: _editedFeedbackController,
                 autofocus: true,
-                decoration: const InputDecoration(hintText: 'Whatis the name of the Feedback to be changed?'),
+                decoration: const InputDecoration(hintText: 'What is the name of the Feedback to be changed?'),
                 onChanged: (value){
                 editedfeedbackname = value;
             },),
@@ -161,8 +171,54 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
     );
   }
   void clear(){
-    setState(() {
-      feedbackpresenter.feedbacks.clear();
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+        return AlertDialog(
+          title: const Text('Delete Feedback'),
+          content: SizedBox(
+            height: 200,
+            width: 100, 
+            child: ListView(
+            children: <Widget>[
+              Text("Which entry should be deleted?", style: TextStyle(fontSize: 18)),
+              SizedBox(
+                height: 40,
+                width: 75,
+                child : DropdownButton<Feedback>(
+                hint: const Text(
+                  'Please select one to delete',
+                  ),
+                  isDense: true,
+                  isExpanded: true,
+                  value: delete_index,
+                  onChanged: (value){
+                    setDialogState(() {
+                      delete_index = value;
+                    });
+                  },
+                  items: [
+                      DropdownMenuItem<Feedback>(
+                      value: Feedback(name: 'Ethan', feedback: 'Dev')
+                    ),
+                    ...feedbackpresenter.feedbacks.map(
+                      (Feedback) => DropdownMenuItem(value: Feedback, child: Text(Feedback.feedback))),
+                    ),
+                  ],
+                ),),
+              TextButton(
+              onPressed: () async{
+
+                  setState((){feedbackpresenter.feedbacks.remove(delete_index);});
+                  delete_index = null;
+                  Navigator.pop(context);
+              },
+              child: const Text('Delete Entry'),
+        ),
+        ])));
+      });
     });
   }
   @override
@@ -196,7 +252,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
             title: Text(feedback.name),
             subtitle: 
               feedback.feedback != null 
-              ? Text(feedback.feedback!) 
+              ? Text(feedback.feedback) 
               : null,
           );
         },
